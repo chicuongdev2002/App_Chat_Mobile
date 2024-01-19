@@ -1,0 +1,10 @@
+npx expo install expo-image-picker
+
+npm i react-native-otp-textinput
+
+npm i rn-emoji-keyboard
+
+    npm install @react-navigation/native
+    npx expo install react-native-screens react-native-safe-area-context
+    npm install react-native-screens react-native-safe-area-context
+    npm install @react-navigation/stack
