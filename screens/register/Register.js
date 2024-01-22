@@ -1,11 +1,20 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { createStackNavigator } from "@react-navigation/stack"
+import NameAndPhone from "./NameAndPhone"
+import AuthenticateOTP from "./AuthenticateOTP"
+import CreatePassword from "./CreatePassword"
 
+const Stack = createStackNavigator()
 const Register = () => {
   return (
-    <View>
-      <Text>This is register screen</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="NameAndPhone" component={NameAndPhone} 
+      options={{
+        headerShown: false
+      }}
+      />
+      <Stack.Screen name="AuthenticateOTP" component={AuthenticateOTP} />
+      <Stack.Screen name="CreatePassword" component={CreatePassword} />
+    </Stack.Navigator>
   )
 }
 
