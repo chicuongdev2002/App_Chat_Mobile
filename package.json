@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "^3.1.1",
+    "@expo/vector-icons": "^14.0.0",
     "@react-navigation/material-bottom-tabs": "^6.2.19",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^6.3.20",
+    "@twotalltotems/react-native-otp-input": "^1.3.11",
     "expo": "~50.0.2",
     "expo-image-picker": "~14.7.1",
     "expo-status-bar": "~1.11.1",
