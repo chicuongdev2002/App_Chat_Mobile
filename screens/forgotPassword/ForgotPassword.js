@@ -61,7 +61,7 @@ const ForgotPassword = () => {
 
       <TouchableOpacity style={{ width: '50%', height: '40px', backgroundColor: '#1faeeb', borderRadius: 20, marginHorizontal: 'auto' }}>
         <Text style={{ fontSize: 20, color: 'white', margin: 'auto' }}>
-          Tiếp tục
+         Tiếp tục
         </Text>
       </TouchableOpacity>
     </View>
