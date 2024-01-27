@@ -24,6 +24,7 @@ export default function App() {
     </Stack.Navigator>
     </NavigationContainer>
   );
+
 }
 
 const styles = StyleSheet.create({
