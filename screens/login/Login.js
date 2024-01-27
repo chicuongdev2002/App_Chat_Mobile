@@ -1,15 +1,38 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SafeAreaView, View, ScrollView, Image, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-
+import axios from 'axios'
+import store from "../../Redux/Redux";
 const Login = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const[account,setAccount]=useState([])
+  const[error,setError] = useState("")
+  //Đăng nhập
   const handleLogin = () => {
-    navigation.navigate('Home');
+    account.forEach((a)=>{
+      if(a.phoneNumber==phoneNumber&&a.password==password){
+        store.dispatch({type:"save",payload:a})
+  navigation.navigate("Home",{})
+      }else {
+setError("Số điện thoại hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại")
+      }
+    })
   };
-
+  //Get Api
+  const fetch=async()=>{
+    try {
+      const res=await axios.get("https://6540a53a45bedb25bfc23dad.mockapi.io/account")
+      if(res.data){
+  setAccount(res.data)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    fetch()
+  },[])
   const handleRegister = () => {
     navigation.navigate('Register');
   };
@@ -20,7 +43,6 @@ const Login = ({ navigation }) => {
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
   return (
     <SafeAreaView 
       style={{
@@ -65,6 +87,13 @@ const Login = ({ navigation }) => {
             {"Vui lòng nhập số điện thoại và mật khẩu đăng nhập"}
           </Text>
         </View>
+        <Text 
+        style={{
+          color: "red", 
+          fontSize: 16,
+        }}>
+        {error}
+      </Text>
         <TextInput 
           style={{
             height: 40,
@@ -208,3 +237,4 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
+
