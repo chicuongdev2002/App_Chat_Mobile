@@ -7,13 +7,14 @@ import Register from './screens/register/Register';
 import ForgotPassword from './screens/forgotPassword/ForgotPassword';
 import TabHome from './screens/afterLogin/tabHome/TabHome';
 import CreatePassword from './screens/register/CreatePassword';
+import User  from './screens/afterLogin/user/User';
 const Stack = createStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator
     screenOptions={{
-      headerShown: false
+      headerShown: true
     }}
     >
       <Stack.Screen name="Login" component={Login}      />
@@ -21,6 +22,7 @@ export default function App() {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Home" component={TabHome} />
       <Stack.Screen name="CreatePassword" component={CreatePassword} />
+      <Stack.Screen name="User" component={User} />
     </Stack.Navigator>
     </NavigationContainer>
   );
