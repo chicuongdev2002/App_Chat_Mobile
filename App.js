@@ -8,20 +8,26 @@ import ForgotPassword from './screens/forgotPassword/ForgotPassword';
 import TabHome from './screens/afterLogin/tabHome/TabHome';
 import HomeChat from './screens/afterLogin/listChat/HomeChat';
 import CreatePassword from './screens/register/CreatePassword';
+import User  from './screens/afterLogin/user/User';
 const Stack = createStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator
     screenOptions={{
-      headerShown: false
+      headerShown: true
     }}
     >
-      {/* <Stack.Screen name="Login" component={Login}      />
+      <Stack.Screen name="Login" component={Login}      />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> */}
-      <Stack.Screen name="Home" component={HomeChat} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="Home" component={HomeChat} 
+      options={{
+        headerShown: false
+      }}
+      />
       <Stack.Screen name="CreatePassword" component={CreatePassword} />
+      <Stack.Screen name="User" component={User} />
     </Stack.Navigator>
     </NavigationContainer>
   );
