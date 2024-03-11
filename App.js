@@ -6,6 +6,7 @@ import Login from './screens/login/Login';
 import Register from './screens/register/Register';
 import ForgotPassword from './screens/forgotPassword/ForgotPassword';
 import TabHome from './screens/afterLogin/tabHome/TabHome';
+import HomeChat from './screens/afterLogin/listChat/HomeChat';
 import CreatePassword from './screens/register/CreatePassword';
 import User  from './screens/afterLogin/user/User';
 const Stack = createStackNavigator()
@@ -20,7 +21,11 @@ export default function App() {
       <Stack.Screen name="Login" component={Login}      />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="Home" component={TabHome} />
+      <Stack.Screen name="Home" component={HomeChat} 
+      options={{
+        headerShown: false
+      }}
+      />
       <Stack.Screen name="CreatePassword" component={CreatePassword} />
       <Stack.Screen name="User" component={User} />
     </Stack.Navigator>
