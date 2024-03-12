@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React ,{useState} from 'react'
+import React, { useState } from 'react'
 import store from '../../../Redux/Redux';
-const ListChat = ({navigation, route}) => {
+const ListChat = ({ navigation, route }) => {
   const [phoneNumber, setPhoneNumber] = useState(store.getState().phoneNumber);
   const [password, setPassword] = useState(store.getState().password);
   return (
@@ -10,9 +10,9 @@ const ListChat = ({navigation, route}) => {
       {/* <Text>{phoneNumber}</Text>
       <Text>{password}</Text> */}
       <TouchableOpacity
-      onPress={()=>navigation.navigate("Chat", route.params)}
+        onPress={() => navigation.navigate("Chat")}
       >
-        Next
+        <Text>Next</Text>
       </TouchableOpacity>
     </View>
   )
