@@ -5,7 +5,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios",
+    "ios": "npx expo start --tunnel",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -19,6 +19,8 @@
     "@twotalltotems/react-native-otp-input": "^1.3.11",
     "axios": "^1.6.7",
     "expo": "~50.0.2",
+    "expo-barcode-scanner": "~12.9.3",
+    "expo-camera": "~14.0.6",
     "expo-contacts": "~12.8.2",
     "expo-image-picker": "~14.7.1",
     "expo-status-bar": "~1.11.1",
@@ -26,10 +28,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.2",
+    "react-native-camera": "^4.2.1",
     "react-native-elements": "^3.4.3",
     "react-native-emoji-selector": "^0.2.0",
     "react-native-gifted-chat": "^2.4.0",
+    "react-native-ios-qr-code-scanner": "^0.1.2",
     "react-native-paper": "^5.12.1",
+    "react-native-permissions": "^4.1.4",
     "react-native-reanimated": "^3.7.2",
     "react-native-safe-area-context": "^4.9.0",
     "react-native-screens": "~3.29.0",
