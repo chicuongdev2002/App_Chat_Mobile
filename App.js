@@ -9,6 +9,7 @@ import TabHome from './screens/afterLogin/tabHome/TabHome';
 import HomeChat from './screens/afterLogin/listChat/HomeChat';
 import CreatePassword from './screens/register/CreatePassword';
 import User  from './screens/afterLogin/user/User';
+import ChatRegion from './screens/afterLogin/listChat/ChatRegion';
 const Stack = createStackNavigator()
 export default function App() {
   return (
@@ -18,7 +19,7 @@ export default function App() {
       headerShown: true
     }}
     >
-      <Stack.Screen name="Login" component={Login}      />
+      <Stack.Screen name="Login" component={Login}/>
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Home" component={HomeChat} 
