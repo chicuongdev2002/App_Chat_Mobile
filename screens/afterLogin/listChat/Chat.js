@@ -5,7 +5,11 @@ import { TextInput } from 'react-native-paper';
 import { Entypo } from '@expo/vector-icons';
 import { SimpleLineIcons, Octicons, MaterialIcons } from '@expo/vector-icons';
 import EmojiSelector, { Categories } from "react-native-emoji-selector";
+// import WebSocket from 'react-native-websocket';
+// import io from 'socket.io-client';
 // import { on } from 'hammerjs';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 import { func } from 'prop-types';
 
 import ChatRegion from './ChatRegion';
@@ -13,7 +17,8 @@ import { render } from 'react-dom';
 
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([])
-    // var stompClient = useRef(null).current;
+    var stompClient = useRef(null);
+
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => {
@@ -36,11 +41,6 @@ const Chat = ({ navigation }) => {
             }
         })
 
-        // //connect to websocket
-        // var socket = new SockJS('/ws')
-        // stompClient = Stomp.over(socket)
-        // stompClient.connect({}, onConnected, onError)
-
         setMessages([
             {
                 _id: 1,
@@ -54,34 +54,54 @@ const Chat = ({ navigation }) => {
             },
         ])
 
+        const socket = new SockJS('http://localhost:8080/ws');
+        stompClient.current = Stomp.over(socket);
+        stompClient.current.connect({}, onConnected, onError); 
     }, [])
 
 
-    // const onSend = useCallback((messages = []) => {
-    //     setMessages(previousMessages =>
-    //         GiftedChat.append(previousMessages, messages),
-    //     )
-    // }, [])
+    function onConnected() {
+        stompClient.current.subscribe('/topic/public', onMessageReceived)
+        stompClient.current.send('/app/chat.addUser', {},
+            JSON.stringify({ sender: 'son'}))
+    }
 
+    function onMessageReceived(payload) {
+        const message = JSON.parse(payload.body)
+        console.log(message);
+        // if(message.content){
+        //     const newMessage = {
+        //         _id: message.id, // Generate unique ID for the message
+        //         text: mess.trim(),
+        //         createdAt: message.sendDate,
+        //         user: {
+        //             _id: 1,
+        //         },
+        //     };
+        //     sendMessage()
+        //     setMessages((prevMessages) => GiftedChat.append(prevMessages, newMessage));
+        // }
+        
+    }
 
+    function onError(error) {
+        console.log('Could not connect to WebSocket server. Please refresh and try again!')
+    }
 
-    // function onConnected() {
-    //     stompClient.subscribe('/topic/public', onMessageReceived)
-    //     stompClient.send('/app/chat.addUser', {},
-    //         JSON.stringify({ sender: 'son', receiver: 'toan', sendDate: new Date(), content: 'hello' }))
-    // }
-
-    // function onError(error) {
-    //     console.log('Could not connect to WebSocket server. Please refresh this page to try again!')
-    // }
-
-    // function onMessageReceived(payload) {
-    //     var message = JSON.parse(payload.body)
-    //     console.log(message)
-
-    // }
-
-
+    function sendMessage() {
+        var messageContent = 'haha';
+        if(messageContent && stompClient.current) {
+            console.log("OK");
+            var chatMessage = {
+                sender: 'Phong',
+                content: messageContent,
+                isSeen: false,
+                receiver: 'Toan',
+                sendDate: new Date()
+            };
+            stompClient.current.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        }
+    }
 
     var [position, setPosition] = useState({ start: 0, end: 0 })
     const textInputRef = useRef(null);
@@ -106,6 +126,7 @@ const Chat = ({ navigation }) => {
                 _id: 1,
             },
         };
+        sendMessage()
         setMessages((prevMessages) => GiftedChat.append(prevMessages, newMessage));
         setMess(''); // Clear the TextInput value after sending
     };
@@ -140,7 +161,7 @@ const Chat = ({ navigation }) => {
                                     <Entypo name="emoji-happy" size={35} color={colorEmoji} />
                                 </TouchableOpacity>
                                 <View style={{ marginHorizontal: 10, width: width - 200 }}>
-                                    <TextInput placeholder="Tin nhắn" style={{ backgroundColor: 'white', fontSize: 20, width:'100%' }}
+                                    <TextInput placeholder="Tin nhắn" style={{ backgroundColor: 'white', fontSize: 20, width: '100%' }}
                                         value={mess}
                                         onChangeText={text => {
                                             setMess(text)
@@ -166,14 +187,14 @@ const Chat = ({ navigation }) => {
                         </View>
                     }
                     messages={messages}
-                    onSend={messages => onSend(messages)}
+                    onSend={messages => onSend()}
                     user={{
                         _id: 1,
                     }}
                 />
             </Animated.View>
 
-            <View style={{ height: height * 0.5}}>
+            {/* <View style={{ height: height * 0.5 }}>
                 <EmojiSelector
                     style={{ width: width }}
                     category={Categories.symbols}
@@ -189,7 +210,7 @@ const Chat = ({ navigation }) => {
                         }
                     }
                 />
-            </View>
+            </View> */}
         </View>
     )
 }

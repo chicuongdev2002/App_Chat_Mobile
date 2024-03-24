@@ -1,9 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import ButtonCustom from '../../components/button'
-const NameAndPhone = ({navigation}) => {
-    var [phone, setPhone] = React.useState('')
-    
+const NameAndPhone = ({ navigation }) => {
+  var [phone, setPhone] = React.useState('')
+  var [name, setName] = React.useState('')
+
   return (
     <View style={{ backgroundColor: 'lightblue', width: '100%', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
       <View style={{ alignItems: 'center', justifyContent: 'center', width: '80%', flex: 1 }}>
@@ -19,10 +20,12 @@ const NameAndPhone = ({navigation}) => {
             borderColor: 'black',
             borderWidth: 1,
             borderRadius: 5
-        }}
+          }}
+            value={name}
+            onChangeText={setName}
             placeholder={'Nhập tên tài khoản'}
             placeholderTextColor={'gray'}
-        />
+          />
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Số điện thoại:</Text>
           <TextInput style={{
             padding: 10,
@@ -31,18 +34,18 @@ const NameAndPhone = ({navigation}) => {
             borderColor: 'black',
             borderWidth: 1,
             borderRadius: 5
-        }}
-        value={phone}
-        onChangeText={setPhone}
+          }}
+            value={phone}
+            onChangeText={setPhone}
             placeholder='Nhập số điện thoại'
             placeholderTextColor={'gray'}
-        />
+          />
         </View>
         <ButtonCustom title={'Xác thực OTP'} backgroundColor={'cyan'} onPress={
           () => {
-            navigation.navigate('AuthenticateOTP', phone)
+            navigation.navigate('AuthenticateOTP', {name: name, phone: phone})
           }
-        }/>
+        } />
       </View>
     </View>
   )

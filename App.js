@@ -10,6 +10,7 @@ import HomeChat from './screens/afterLogin/listChat/HomeChat';
 import CreatePassword from './screens/register/CreatePassword';
 import User  from './screens/afterLogin/user/User';
 import ChatRegion from './screens/afterLogin/listChat/ChatRegion';
+import Chat from './screens/afterLogin/listChat/Chat';
 const Stack = createStackNavigator()
 export default function App() {
   return (
