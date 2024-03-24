@@ -11,13 +11,28 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+        }
+      ]
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
+      "supportsFaceId": true,
       "infoPlist": {
-        "NSContactsUsageDescription": "We need access to your contacts for some awesome reason"
+        "NSContactsUsageDescription": "Ứng dụng yêu cầu quyền truy cập danh bạ",
+        "NSFaceIDUsageDescription": "Vui lòng cho phép ứng dụng truy cập Face ID để xác thực."
       }
     },
     "android": {
