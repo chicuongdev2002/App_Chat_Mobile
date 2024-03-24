@@ -25,7 +25,7 @@ export default function App() {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Home" component={HomeChat} 
       options={{
-        headerShown: false
+        // headerShown: false
       }}
       />
       <Stack.Screen name="CreatePassword" component={CreatePassword} />

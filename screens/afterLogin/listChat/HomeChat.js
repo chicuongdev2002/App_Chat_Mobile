@@ -26,7 +26,10 @@ const HomChat = ({navigation}) => {
           },
         }}/>
         <Stack.Screen name="OptionChat" component={OptionChat} />
-        <Stack.Screen name="ScanQR" component={ScanQR} />
+        <Stack.Screen name="ScanQR" component={ScanQR}
+         options={{
+          headerShown: false
+        }} />
     </Stack.Navigator>
   )
 }
