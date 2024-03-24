@@ -10,12 +10,12 @@ const Stack = createStackNavigator()
 const HomChat = ({navigation}) => {
   return (
     <Stack.Navigator>
-        {/* <Stack.Screen name="TabHome" component={TabHome}
+        <Stack.Screen name="TabHome" component={TabHome}
         options={{
           headerShown: false
         }}
         ></Stack.Screen>
-        <Stack.Screen name="ListChat" initialParams={navigation} component={ListChat} /> */}
+        <Stack.Screen name="ListChat" initialParams={navigation} component={ListChat} />
         <Stack.Screen name="Chat" component={Chat} 
         options={{
           headerStyle: {

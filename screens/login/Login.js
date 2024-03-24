@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
-import store from "../../Redux/Redux";
+// import store from "../../Redux/Redux";
+import { useDispatch } from 'react-redux';
+import { save } from "../../Redux/slice";
 
 const Login = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -10,7 +12,8 @@ const Login = ({ navigation }) => {
   const [account, setAccount] = useState([]);
   const [error, setError] = useState("");
   const [id, setId] = useState("");
-  const [showError, setShowError] = useState(false); 
+  const [showError, setShowError] = useState(false);
+  const dispatch = useDispatch();
 
  // Đăng nhập
 const handleLogin = () => {
@@ -37,7 +40,8 @@ const handleLogin = () => {
     try {
       const res = await axios.get(`https://deploybackend-production.up.railway.app/users/getUserById?id=${id}`);
       if (res.data) {
-        store.dispatch({ type: 'save', payload: res.data });
+        // store.dispatch({ type: 'save', payload: res.data });
+        dispatch(save(res.data));
         navigation.navigate("Home");
       }
     } catch (error) {
