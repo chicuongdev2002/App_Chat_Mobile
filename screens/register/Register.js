@@ -6,12 +6,12 @@ import CreatePassword from "./CreatePassword"
 const Stack = createStackNavigator()
 const Register = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="NameAndPhone" component={NameAndPhone} 
-      options={{
-        headerShown: false
-      }}
-      />
+    <Stack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}
+    >
+      <Stack.Screen name="NameAndPhone" component={NameAndPhone} />
       <Stack.Screen name="AuthenticateOTP" component={AuthenticateOTP} />
       <Stack.Screen name="CreatePassword" component={CreatePassword} />
     </Stack.Navigator>
