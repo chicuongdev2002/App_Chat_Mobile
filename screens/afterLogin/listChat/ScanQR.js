@@ -80,7 +80,7 @@ export default function ScanQR({ navigation }) {
   const handleScanAgain = () => {
     setScanned(false);
     setShowConfirmation(false);
-    setTimeLeft(10);
+    setTimeLeft(5);
     setCanLogin(false); // Reset trạng thái của nút đăng nhập
   };
 
