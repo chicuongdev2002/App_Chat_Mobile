@@ -7,7 +7,7 @@ const AuthenticateOTP = ({navigation, route}) => {
     return (
         <View style={{ flex: 1, backgroundColor: 'lightblue', width: '100%', paddingHorizontal: 10, justifyContent: 'center' }}>
             <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={styles.text}>Mã OTP đã được gửi đến số điện thoại: {route.params}</Text>
+                <Text style={styles.text}>Mã OTP đã được gửi đến số điện thoại: {route.params.phone}</Text>
             </View>
             <View style={{ flex: 5 }}>
                 <View style={{ width: '100%' }}>
@@ -26,7 +26,7 @@ const AuthenticateOTP = ({navigation, route}) => {
                 </View>
                 <ButtonCustom title={'Xác thực'} backgroundColor={'cyan'} onPress={
                     () => {
-                       navigation.navigate('CreatePassword')
+                       navigation.navigate('CreatePassword', route.params)
                     }
                 } />
                 <View style={{flexDirection: 'row', marginTop:20}}>
