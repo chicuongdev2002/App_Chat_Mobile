@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, Platform, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import axios from 'axios'; 
 import { useSelector, useDispatch } from 'react-redux';
-import { updateAvatar } from "../../../Redux/slice";
+import {save, updateAvatar } from "../../../Redux/slice";
 import Icon from 'react-native-vector-icons/FontAwesome';
 const EditProfile = ({navigation}) => {
   const coverImage= useSelector((state) => state.account.coverImage);
@@ -13,6 +13,10 @@ const EditProfile = ({navigation}) => {
   const userNewData = useSelector((state) => state.account);
   const dispatch = useDispatch(); 
   const [avatar, setAvatar] = useState(avt); 
+  useEffect(() => {
+    // Update Redux khi avt thay đổi
+    dispatch(updateAvatar(avatar));
+  }, [avatar]);
 //hàm xử lí chọn image từ thiết bị
   const selectImage = async (isAvatar) => {
     let result;
@@ -78,6 +82,7 @@ const EditProfile = ({navigation}) => {
       //update dữ liệu về backend
     const updateUserResponse = await axios.post('https://deploybackend-production.up.railway.app/users/updateUser', updatedUserData);
     console.log('Dữ liệu trả về sau update', updateUserResponse.data);
+    dispatch(save(updatedUserData))
     } catch (error) {
       console.error('Lỗi upload ảnh', error);
     }
@@ -113,13 +118,12 @@ const EditProfile = ({navigation}) => {
     }
   };
   
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1/3 }}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-  <Icon name="arrow-left" size={30} color="#000000" />
-</TouchableOpacity>
+          <Icon name="arrow-left" size={30} color="#000000" />
+        </TouchableOpacity>
 
         {coverImage && (
           <Image
