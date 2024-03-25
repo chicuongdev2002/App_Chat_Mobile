@@ -3,11 +3,79 @@ import React from 'react'
 import ButtonCustom from '../../components/button'
 import { Entypo } from '@expo/vector-icons';
 
-const CreatePassword = ({navigation}) => {
+const CreatePassword = ({ navigation, route }) => {
     var [eye1, setEye1] = React.useState('eye-with-line')
     var [eye2, setEye2] = React.useState('eye-with-line')
     var [secureTextEntry1, setSecureTextEntry1] = React.useState(true)
     var [secureTextEntry2, setSecureTextEntry2] = React.useState(true)
+    var [password, setPassword] = React.useState('')
+    var [rePassword, setRePassword] = React.useState('')
+    var [notification, setNotification] = React.useState('')
+    console.log(route.params)
+
+    function checkPassword() {
+        if (password != rePassword) {
+            setNotification('Mật khẩu không khớp')
+            return false
+        }
+        setNotification('')
+        return true;
+    }
+    function handleRegister() {
+        fetch('https://deploybackend-production.up.railway.app/account/registerAccount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: '5',
+                phone: route.params.phone,
+                password: password,
+                createDate: new Date().toISOString(),
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                handleInsertUser(data)
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+
+    function handleInsertUser(data) {
+        fetch('https://deploybackend-production.up.railway.app/users/insertUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: data.id,
+                userName: route.params.name,
+                phone: data.phone,
+                gender: route.params.gender,
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+
     return (
         <View style={{ flex: 1, backgroundColor: 'lightblue', padding: 10 }}>
             <View>
@@ -26,6 +94,8 @@ const CreatePassword = ({navigation}) => {
                                 borderWidth: 1,
                                 borderRadius: 5
                             }}
+                                value={password}
+                                onChangeText={setPassword}
                                 secureTextEntry={secureTextEntry1}
                                 placeholder='Nhập mật khẩu'
                                 placeholderTextColor={'gray'}
@@ -57,6 +127,8 @@ const CreatePassword = ({navigation}) => {
                                 borderWidth: 1,
                                 borderRadius: 5
                             }}
+                                value={rePassword}
+                                onChangeText={setRePassword}
                                 secureTextEntry={secureTextEntry2}
                                 placeholder='Nhập lại mật khẩu'
                                 placeholderTextColor={'gray'}
@@ -80,9 +152,13 @@ const CreatePassword = ({navigation}) => {
                 </View>
                 <ButtonCustom title={'Đăng ký'} backgroundColor={'cyan'} onPress={
                     () => {
-                        navigation.navigate('Login')
+                        if (checkPassword() && password != '') {
+                            handleRegister()
+                            navigation.navigate('Login')
+                        }
                     }
                 } />
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'red' }}>{notification}</Text>
             </View>
         </View>
     )
