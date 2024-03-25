@@ -5,12 +5,14 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import User from '../user/User'
 import Contact from '../Contact'
 import ListChat from '../listChat/ListChat'
+import UserProfile from '../user/UserProfile'
 const Tab = createMaterialBottomTabNavigator()
 const TabHome = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="ListChat" component={ListChat} />
+      <Tab.Screen name="Tin nhắn" component={ListChat} />
       <Tab.Screen name="Danh bạ" component={Contact} />
+      <Tab.Screen name="Cá nhân" component={UserProfile} />
     </Tab.Navigator>
   )
 }
