@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { save } from "../../Redux/slice";
 
 const Login = ({ navigation }) => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("84814929002");
+  const [password, setPassword] = useState("cuongdacap123");
   const [showPassword, setShowPassword] = useState(false);
   const [account, setAccount] = useState([]);
   const [error, setError] = useState("");
@@ -18,6 +18,7 @@ const Login = ({ navigation }) => {
  // Đăng nhập
 const handleLogin = () => {
   let found = false;
+  navigation.navigate("Home");
   account.forEach((a) => {
     if (a.phone == phoneNumber && a.password == password) {
       setId(a.id);

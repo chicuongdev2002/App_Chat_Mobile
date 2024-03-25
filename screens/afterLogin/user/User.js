@@ -25,7 +25,6 @@ const User = () => {
   }, []);
 
   const handleAddFriend = (phoneNumber) => {
-    // Viết logic để thêm bạn bè ở đây
     console.log(`Add friend with phone number: ${phoneNumber}`);
   };
 
