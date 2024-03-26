@@ -19,13 +19,13 @@ const Login = ({ navigation }) => {
 const handleLogin = () => {
   let found = false;
   navigation.navigate("Home");
-  account.forEach((a) => {
-    if (a.phone == phoneNumber && a.password == password) {
-      setId(a.id);
-      fetchUserById(a.id);
-      found = true; 
-    }
-  });
+  // account.forEach((a) => {
+  //   if (a.phone == phoneNumber && a.password == password) {
+  //     setId(a.id);
+  //     fetchUserById(a.id);
+  //     found = true; 
+  //   }
+  // });
   if (!found) { 
     setError("Số điện thoại hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại");
     setShowError(true);

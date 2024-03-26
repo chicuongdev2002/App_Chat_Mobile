@@ -1,10 +1,17 @@
 import React, { useState,useEffect } from "react";
-import { SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, Platform, Alert } from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, Platform, Alert,ScrollView } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import axios from 'axios'; 
 import { useSelector, useDispatch } from 'react-redux';
 import {save, updateAvatar } from "../../../Redux/slice";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Fontisto } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome6 } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import profileImage from '../../../assets/profile.png';
+import { Audio } from 'expo-av';
+import ButtonWithAudio from '../../../components/ButtonWithAudio';
 const EditProfile = ({navigation}) => {
   const coverImage= useSelector((state) => state.account.coverImage);
   const name = useSelector((state) => state.account.userName);
@@ -12,7 +19,10 @@ const EditProfile = ({navigation}) => {
   const bio = useSelector((state) => state.account.bio);
   const userNewData = useSelector((state) => state.account);
   const dispatch = useDispatch(); 
+  // const avatar=useState("")
+  // const coverImage=useState("")
   const [avatar, setAvatar] = useState(avt); 
+// const lastName = name.split(' ').pop(); 
   useEffect(() => {
     // Update Redux khi avt thay đổi
     dispatch(updateAvatar(avatar));
@@ -119,15 +129,17 @@ const EditProfile = ({navigation}) => {
   };
   
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1/3 }}>
+    <SafeAreaView style={{ flex: 1,backgroundColor:"#FFFFFF" }}>
+      <View style={{ flex: 1.5/3 }}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={30} color="#000000" />
+      <Ionicons name="chevron-back" size={30} color="black" />
         </TouchableOpacity>
-
+        <View style={styles.buttonAudio}>
+      <ButtonWithAudio />
+    </View>
         {coverImage && (
           <Image
-            source={{ uri: coverImage }}
+            source={{ uri:coverImage }}
             style={styles.coverImage}
           />
         )}
@@ -149,6 +161,36 @@ const EditProfile = ({navigation}) => {
           <Text style={styles.bio}>{bio}</Text>
         </View>
       </View>
+      <View  style={styles.headerScrollView}>
+         <ScrollView horizontal style={styles.buttonScrollView}>
+         <TouchableOpacity style={styles.button} onPress={() => {}}>
+           <Fontisto name="applemusic" size={24} color="#2196f3" />
+           <Text style={styles.buttonText}>Nhạc chờ</Text>
+         </TouchableOpacity>
+         <TouchableOpacity style={styles.button} onPress={() => {}}>
+           <FontAwesome5 name="file-import" size={24} color="#2196f3" />
+           <Text style={styles.buttonText}>Nhập từ Facebook</Text>
+         </TouchableOpacity>
+         <TouchableOpacity style={styles.button} onPress={() => {}}>
+         <FontAwesome6 name="image" size={24} color="#2196f3" />
+           <Text style={styles.buttonText}>Ảnh</Text>
+         </TouchableOpacity>
+       </ScrollView>
+       </View>
+       <View style={styles.centerScreen}>
+       <Image
+           source={profileImage }
+                  style={styles.imageCenter}
+                />
+       </View>
+       <View style={styles.centerScreen}>
+        <Text  style={styles.centerText}>Hôm nay {name} có gì vui?</Text>
+       </View>
+       <View style={styles.footerScreen}>
+       <TouchableOpacity style={styles.buttonNK}>
+      <Text style={styles.buttonTextNK}>Đăng lên nhật kí</Text>
+    </TouchableOpacity>
+       </View>
     </SafeAreaView>
   );
 };
@@ -188,6 +230,71 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#CCCCCC'
   },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  button: {
+    backgroundColor: "#FFFFFF",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    flexDirection: "row",
+    margin:10
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  centerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  buttonScrollView: {
+    flexDirection: "row",
+    // paddingHorizontal: 10,
+  
+  },
+  headerScrollView:{
+    flex:0.5/3
+  },
+  centerScreen:{
+    flex:0.5/3,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    marginTop:50
+  },
+  imageCenter:{
+    width: 200,
+    height: 200,
+  },
+  buttonNK: {
+    backgroundColor: '#007bff',
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    alignItems: 'center',
+    width:'50%'
+  },
+  buttonTextNK: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  footerScreen:{
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  buttonAudio:{
+      justifyContent: 'center',
+       alignItems: 'flex-start',
+       marginLeft:30,
+       marginTop:10
+  }
 });
 
 export default EditProfile;
